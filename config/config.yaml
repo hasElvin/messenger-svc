@@ -1,0 +1,16 @@
+app:
+  webhook_url: "https://webhook.site/309d556c-2697-496c-9bda-5416d26b39ef"
+  webhook_key: "INS.me1x9uMcyYGlhKKQVPoc.bO3j9aZwRTOcA2Ywo"
+  send_interval_seconds: 120
+
+database:
+  host: "localhost"
+  port: 5432
+  user: "messenger"
+  password: "messenger123"
+  name: "messenger_db"
+  sslmode: "disable"
+
+redis:
+  addr: "localhost:6379"
+  db: 0
