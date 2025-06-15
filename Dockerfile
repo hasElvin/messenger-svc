@@ -1,5 +1,6 @@
 # Start from the official Go image
 FROM golang:1.22
+ENV GOTOOLCHAIN=auto
 
 # Set the working directory inside the container
 WORKDIR /app
