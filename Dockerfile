@@ -15,7 +15,7 @@ RUN go mod download
 COPY . .
 
 # Build the Go binary
-RUN go build -o messenger ./cmd/main
+RUN go build -o messenger ./cmd
 
 # Expose the app port
 EXPOSE 8080
