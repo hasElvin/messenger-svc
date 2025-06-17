@@ -44,7 +44,4 @@ func main() {
 	if err := server.Run(":8080"); err != nil {
 		log.Fatalf("Server failed to start: %v", err)
 	}
-
-	//test commit
-
 }
