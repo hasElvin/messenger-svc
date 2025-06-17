@@ -10,6 +10,7 @@ import (
 	"github.com/hasElvin/messenger-svc/internal/adapters/rest"
 	"github.com/hasElvin/messenger-svc/internal/core/services"
 	"log"
+	"os"
 )
 
 func main() {
@@ -40,8 +41,13 @@ func main() {
 	// Initialize and start HTTP server
 	server := rest.NewServer(messageService)
 
-	fmt.Println("Server starting on :8080")
-	if err := server.Run(":8080"); err != nil {
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+
+	fmt.Printf("Server starting on :%s\n", port)
+	if err := server.Run(":" + port); err != nil {
 		log.Fatalf("Server failed to start: %v", err)
 	}
 }

@@ -3,6 +3,8 @@ package config
 import (
 	"github.com/spf13/viper"
 	"log"
+	"os"
+	"strconv"
 )
 
 type Config struct {
@@ -33,11 +35,39 @@ func LoadConfig() Config {
 	viper.AddConfigPath("./config")
 
 	var config Config
+
+	// Load from YAML
 	if err := viper.ReadInConfig(); err != nil {
 		log.Fatalf("Config read error: %v", err)
 	}
 	if err := viper.Unmarshal(&config); err != nil {
 		log.Fatalf("Config unmarshal error: %v", err)
 	}
+
+	// Overwrite from ENV if available
+	overrideString(&config.Database.Host, "PGHOST")
+	overrideInt(&config.Database.Port, "PGPORT")
+	overrideString(&config.Database.User, "PGUSER")
+	overrideString(&config.Database.Password, "PGPASSWORD")
+	overrideString(&config.Database.Name, "PGDATABASE")
+	overrideString(&config.Database.SSLMode, "PGSSLMODE")
+
+	overrideString(&config.Redis.Addr, "REDIS_ADDR")
+	overrideInt(&config.Redis.DB, "REDIS_DB")
+
 	return config
+}
+
+func overrideString(field *string, envKey string) {
+	if val := os.Getenv(envKey); val != "" {
+		*field = val
+	}
+}
+
+func overrideInt(field *int, envKey string) {
+	if val := os.Getenv(envKey); val != "" {
+		if intVal, err := strconv.Atoi(val); err == nil {
+			*field = intVal
+		}
+	}
 }
