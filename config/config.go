@@ -10,7 +10,7 @@ import (
 type Config struct {
 	App struct {
 		WebhookURL       string `yaml:"webhook_url" mapstructure:"webhook_url"`
-		WebhookKey       string `yaml:"webhook_key" mapstructure:"webhook_key"` //in case you have
+		WebhookKey       string `yaml:"webhook_key" mapstructure:"webhook_key"` //optional
 		SendIntervalSecs int    `yaml:"send_interval_seconds" mapstructure:"send_interval_seconds"`
 	} `yaml:"app" mapstructure:"app"`
 
@@ -24,8 +24,9 @@ type Config struct {
 	} `yaml:"database" mapstructure:"database"`
 
 	Redis struct {
-		Addr string `yaml:"addr" mapstructure:"addr"`
-		DB   int    `yaml:"db" mapstructure:"db"`
+		Addr     string `yaml:"addr" mapstructure:"addr"`
+		DB       int    `yaml:"db" mapstructure:"db"`
+		Password string `yaml:"password" mapstructure:"password"` // optional
 	} `yaml:"redis" mapstructure:"redis"`
 }
 
@@ -54,6 +55,7 @@ func LoadConfig() Config {
 
 	overrideString(&config.Redis.Addr, "REDIS_ADDR")
 	overrideInt(&config.Redis.DB, "REDIS_DB")
+	overrideString(&config.Redis.Password, "REDIS_PASSWORD")
 
 	return config
 }

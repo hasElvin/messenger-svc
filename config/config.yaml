@@ -14,3 +14,4 @@ database:
 redis:
   addr: "localhost:6379"
   db: 0
+  password: ""

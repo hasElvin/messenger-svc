@@ -15,8 +15,9 @@ type redisCache struct {
 
 func InitRedis(cfg config.Config) *redis.Client {
 	client := redis.NewClient(&redis.Options{
-		Addr: cfg.Redis.Addr,
-		DB:   cfg.Redis.DB,
+		Addr:     cfg.Redis.Addr,
+		DB:       cfg.Redis.DB,
+		Password: cfg.Redis.Password,
 	})
 
 	// Test Redis connection
