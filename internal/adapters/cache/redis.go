@@ -14,14 +14,14 @@ type redisCache struct {
 }
 
 func InitRedis(cfg config.Config) *redis.Client {
-	client := redis.NewClient(&redis.Options{
-		Addr:     cfg.Redis.Addr,
-		DB:       cfg.Redis.DB,
-		Password: cfg.Redis.Password,
-	})
+	opt, err := redis.ParseURL(cfg.Redis.URL)
+	if err != nil {
+		log.Fatalf("Failed to parse Redis URL: %v", err)
+	}
+	client := redis.NewClient(opt)
 
 	// Test Redis connection
-	_, err := client.Ping(context.Background()).Result()
+	_, err = client.Ping(context.Background()).Result()
 	if err != nil {
 		log.Fatalf("Failed to connect to Redis: %v", err)
 	}

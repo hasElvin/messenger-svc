@@ -24,9 +24,7 @@ type Config struct {
 	} `yaml:"database" mapstructure:"database"`
 
 	Redis struct {
-		Addr     string `yaml:"addr" mapstructure:"addr"`
-		DB       int    `yaml:"db" mapstructure:"db"`
-		Password string `yaml:"password" mapstructure:"password"` // optional
+		URL string `yaml:"url" mapstructure:"url"` //optional
 	} `yaml:"redis" mapstructure:"redis"`
 }
 
@@ -53,9 +51,7 @@ func LoadConfig() Config {
 	overrideString(&config.Database.Name, "PGDATABASE")
 	overrideString(&config.Database.SSLMode, "PGSSLMODE")
 
-	overrideString(&config.Redis.Addr, "REDIS_ADDR")
-	overrideInt(&config.Redis.DB, "REDIS_DB")
-	overrideString(&config.Redis.Password, "REDIS_PASSWORD")
+	overrideString(&config.Redis.URL, "REDIS_URL")
 
 	return config
 }
