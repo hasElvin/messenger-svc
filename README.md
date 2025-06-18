@@ -26,12 +26,16 @@ This project follows a **hexagonal (clean) architecture** style:
 
 ## 🧪 Sample Test Data
 
-On startup, the app inserts **10 sample messages** into the database so you can test endpoints right away.
+On startup, the app inserts **10 sample messages** into the database so you can test endpoints right away (please note that message sender will also auto-start handling new / pending messages)
 
 ---
 
 ## 📚 API Endpoints
 
+### 🔗 Interactive Documentation
+Test all endpoints using interactive Swagger UI: **[API Documentation](https://messenger-svc-gfsy.onrender.com/docs/index.html)**
+
+### Available Endpoints
 | Method | Endpoint     | Description                  |
 |--------|--------------|------------------------------|
 | GET    | `/ping`      | Health check                 |
@@ -57,11 +61,11 @@ cd messenger-svc
 ```
 
 2. If you're using custom credentials or ports, edit your .env file or config/config.go.
-   By default, the app connects to:
-- `localhost:5432`: PostgreSQL
-- `localhost:6379`: Redis
+- For Redis, you can add connection url into config.yaml file or relevant environment variable.
+- No API key is required for webhook usage unless you configure one.
+- If run locally, by default the app connects to: `localhost:5432` for PostgreSQL
 
-No API key is required for webhook usage unless you configure one.
+
 
 3. Build and run the containers
 ```bash
@@ -72,7 +76,7 @@ On first run, this will:
 - Start PostgreSQL and Redis
 - Auto-migrate the DB schema
 - Insert 10 sample messages
-- Launch the API server on `localhost:8080`
+- Launch the API server on `localhost:8080` (unless overwritten in .env or by hosting provider)
 - Start the message sender automatically
 
 4. Redis cache check
