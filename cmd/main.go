@@ -13,6 +13,12 @@ import (
 	"os"
 )
 
+// @title Messenger API
+// @version 1.0
+// @description API for managing message auto-sending system
+// @host messenger-svc-gfsy.onrender.com
+// @schemes https
+// @BasePath /
 func main() {
 	cfg := config.LoadConfig()
 
