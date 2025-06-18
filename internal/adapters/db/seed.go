@@ -7,13 +7,6 @@ import (
 
 // SeedSampleMessages inserts sample data for testing
 func SeedSampleMessages(db *gorm.DB) {
-	var count int64
-	db.Model(&MessageModel{}).Count(&count)
-	if count > 0 {
-		log.Println("Sample messages already seeded")
-		return
-	}
-
 	messages := []MessageModel{
 		{To: "+905551111001", Content: "Test message 1", Status: "pending"},
 		{To: "+905551111002", Content: "Test message 2", Status: "pending"},
