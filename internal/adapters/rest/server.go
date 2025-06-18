@@ -1,6 +1,7 @@
 package rest
 
 import (
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/hasElvin/messenger-svc/internal/adapters/rest/handlers"
 	"github.com/hasElvin/messenger-svc/internal/core/ports"
@@ -15,6 +16,7 @@ func NewServer(messageService ports.MessageService) *Server {
 	messageHandler := handlers.NewMessageHandler(messageService)
 
 	router := gin.Default()
+	router.Use(cors.Default())
 
 	server := &Server{
 		messageHandler: messageHandler,
