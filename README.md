@@ -35,6 +35,8 @@ On startup, the app inserts **10 sample messages** into the database so you can 
 ### 🔗 Interactive Documentation
 Test all endpoints using interactive Swagger UI: **[API Documentation](https://messenger-svc-gfsy.onrender.com/docs/index.html)**
 
+Note: no security measures or middlewares have been implemented to make the development and testing processes easier (can be added in the next release upon request)
+
 ### Available Endpoints
 To send curl or postman requests, you can use base link `https://messenger-svc-gfsy.onrender.com` followed by:
 
