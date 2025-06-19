@@ -44,6 +44,9 @@ func LoadConfig() Config {
 	}
 
 	// Overwrite from ENV if available
+	overrideString(&config.App.WebhookURL, "WEBHOOK_URL")
+	overrideString(&config.App.WebhookKey, "WEBHOOK_KEY")
+
 	overrideString(&config.Database.Host, "PGHOST")
 	overrideInt(&config.Database.Port, "PGPORT")
 	overrideString(&config.Database.User, "PGUSER")

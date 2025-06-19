@@ -36,13 +36,21 @@ On startup, the app inserts **10 sample messages** into the database so you can 
 Test all endpoints using interactive Swagger UI: **[API Documentation](https://messenger-svc-gfsy.onrender.com/docs/index.html)**
 
 ### Available Endpoints
+To send curl or postman requests, you can use base link `https://messenger-svc-gfsy.onrender.com` followed by:
+
 | Method | Endpoint     | Description                  |
 |--------|--------------|------------------------------|
-| GET    | `/ping`      | Health check                 |
 | POST   | `/start`     | Start auto-sender            |
 | POST   | `/stop`      | Stop auto-sender             |
 | GET    | `/sent`      | List all sent messages       |
 
+For testing purposes only, you can use the following utility endpoints:
+
+| Method | Endpoint | Description                  |
+|--------|----------|------------------------------|
+| GET    | `/ping`  | Health check                 |
+| POST   | `/seed`  | Seeds 10 sample data into db |
+| DELETE | `/clear` | Clears database              |
 ---
 
 ## 🐳 Run with Docker Compose
@@ -87,3 +95,8 @@ docker compose exec redis redis-cli
 ```
 After messages are sent, their delivery metadata is stored in Redis.
 Each key looks like `msg:<id>` with a corresponding value
+---
+
+## 📝 Notes
+- Webhook url has been constructed in a way that only returns static msgId just because the dynamic values in custom actions are only supported in their paid plan.
+- Webhook url might get expired from time to time. I will monitor myself, but in case of expiration, feel free to generate your own and add it to config.yaml or relevant environment variable.

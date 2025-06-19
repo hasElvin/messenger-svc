@@ -34,6 +34,21 @@ info:
   title: Messenger API
   version: "1.0"
 paths:
+  /clear:
+    delete:
+      description: Clears database for testing purposes
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handlers.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handlers.FailResponse'
+      summary: Clear database
+      tags:
+      - Utility
   /ping:
     get:
       description: Returns a simple pong string
@@ -43,6 +58,21 @@ paths:
           schema:
             $ref: '#/definitions/handlers.SuccessResponse'
       summary: Health check
+      tags:
+      - Utility
+  /seed:
+    post:
+      description: Seeds 10 sample messages into database for testing purposes
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handlers.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handlers.FailResponse'
+      summary: Seed sample messages
       tags:
       - Utility
   /sent:

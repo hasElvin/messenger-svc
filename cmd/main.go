@@ -33,11 +33,14 @@ func main() {
 	cacheService := cache.NewRedisCache(redisClient)
 	messageSender := http.NewWebhookSender(cfg.App.WebhookURL)
 
-	// Initialize service
+	// Initialize services
 	messageService := services.NewMessageService(messageRepo, cacheService, messageSender)
+	utilityService := services.NewUtilityService(messageRepo)
 
 	// Seed test data for easy testing purposes
-	db.SeedSampleMessages(database)
+	if err := utilityService.SeedSampleMessages(); err != nil {
+		log.Fatalf("Failed to seed sample messages: %v", err)
+	}
 
 	// Start the auto sender immediately with context
 	if err := messageService.StartAutoSender(context.Background(), cfg.App.SendIntervalSecs); err != nil {
@@ -45,7 +48,7 @@ func main() {
 	}
 
 	// Initialize and start HTTP server
-	server := rest.NewServer(messageService)
+	server := rest.NewServer(messageService, utilityService)
 
 	port := os.Getenv("PORT")
 	if port == "" {

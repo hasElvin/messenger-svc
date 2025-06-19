@@ -15,6 +15,29 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/clear": {
+            "delete": {
+                "description": "Clears database for testing purposes",
+                "tags": [
+                    "Utility"
+                ],
+                "summary": "Clear database",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.SuccessResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.FailResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/ping": {
             "get": {
                 "description": "Returns a simple pong string",
@@ -27,6 +50,29 @@ const docTemplate = `{
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/handlers.SuccessResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/seed": {
+            "post": {
+                "description": "Seeds 10 sample messages into database for testing purposes",
+                "tags": [
+                    "Utility"
+                ],
+                "summary": "Seed sample messages",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.SuccessResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.FailResponse"
                         }
                     }
                 }

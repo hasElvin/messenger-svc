@@ -1,12 +1,11 @@
 package db
 
 import (
-	"gorm.io/gorm"
 	"log"
 )
 
 // SeedSampleMessages inserts sample data for testing
-func SeedSampleMessages(db *gorm.DB) {
+func (r *postgresRepository) SeedSampleMessages() error {
 	messages := []MessageModel{
 		{To: "+905551111001", Content: "Test message 1", Status: "pending"},
 		{To: "+905551111002", Content: "Test message 2", Status: "pending"},
@@ -20,10 +19,21 @@ func SeedSampleMessages(db *gorm.DB) {
 		{To: "+905551111010", Content: "Test message 10", Status: "pending"},
 	}
 
-	if err := db.Create(&messages).Error; err != nil {
+	if err := r.db.Create(&messages).Error; err != nil {
 		log.Printf("Failed to seed sample messages: %v", err)
-		return
+		return err
 	}
 
 	log.Println("10 sample messages inserted into the database")
+	return nil
+}
+
+// ClearDatabase truncates the messages table to clear all data
+func (r *postgresRepository) ClearDatabase() error {
+	if err := r.db.Exec("TRUNCATE TABLE messages").Error; err != nil {
+		log.Printf("Failed to clear database: %v", err)
+		return err
+	}
+	log.Println("Database cleared successfully")
+	return nil
 }

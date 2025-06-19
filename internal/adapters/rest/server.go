@@ -12,17 +12,20 @@ import (
 
 type Server struct {
 	messageHandler *handlers.MessageHandler
+	utilityHandler *handlers.UtilityHandler
 	router         *gin.Engine
 }
 
-func NewServer(messageService ports.MessageService) *Server {
+func NewServer(messageService ports.MessageService, utilityService ports.UtilityService) *Server {
 	messageHandler := handlers.NewMessageHandler(messageService)
+	utilityHandler := handlers.NewUtilityHandler(utilityService)
 
 	router := gin.Default()
 	router.Use(cors.Default())
 
 	server := &Server{
 		messageHandler: messageHandler,
+		utilityHandler: utilityHandler,
 		router:         router,
 	}
 
@@ -31,10 +34,13 @@ func NewServer(messageService ports.MessageService) *Server {
 }
 
 func (s *Server) setupRoutes() {
-	s.router.GET("/ping", s.messageHandler.Ping)
 	s.router.POST("/start", s.messageHandler.StartAutoSender)
 	s.router.POST("/stop", s.messageHandler.StopAutoSender)
 	s.router.GET("/sent", s.messageHandler.GetSentMessages)
+
+	s.router.GET("/ping", s.utilityHandler.Ping)
+	s.router.POST("/seed", s.utilityHandler.SeedSampleMessages)
+	s.router.DELETE("/clear", s.utilityHandler.ClearDatabase)
 
 	s.router.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 }

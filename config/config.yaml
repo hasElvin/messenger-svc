@@ -4,12 +4,12 @@ app:
   send_interval_seconds: 120
 
 database:
-  host: "localhost"
+  host: "dpg-d18s7ah5pdvs73ctdj80-a.oregon-postgres.render.com"
   port: 5432
-  user: "messenger"
-  password: "messenger123"
-  name: "messenger_db"
-  sslmode: "disable"
+  user: "messenger_db_v5ff_user"
+  password: "IrjMqhJ2NSycCbT6PT48k3FflhsDvjQa"
+  name: "messenger_db_v5ff"
+  sslmode: "require"
 
 redis:
-  url: ""
+  url: "rediss://default:AaCKAAIjcDEzMDg1YmEzNjNhMjU0NWUxYTk3ZTAyYjU0Y2NjMjA0OXAxMA@guiding-lamb-41098.upstash.io:6379"

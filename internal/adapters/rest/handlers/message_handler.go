@@ -13,28 +13,10 @@ type MessageHandler struct {
 	messageService ports.MessageService
 }
 
-type SuccessResponse struct {
-	Message string `json:"message"`
-}
-
-type FailResponse struct {
-	Message string `json:"error"`
-}
-
 func NewMessageHandler(messageService ports.MessageService) *MessageHandler {
 	return &MessageHandler{
 		messageService: messageService,
 	}
-}
-
-// Ping godoc
-// @Summary Health check
-// @Description Returns a simple pong string
-// @Tags Utility
-// @Success 200 {object} SuccessResponse
-// @Router /ping [get]
-func (h *MessageHandler) Ping(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{"message": "pong"})
 }
 
 // StartAutoSender godoc
