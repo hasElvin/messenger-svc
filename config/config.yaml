@@ -1,0 +1,17 @@
+app:
+  webhook_url: "https://webhook.site/a0d7f008-bdca-4c0d-8127-ea7641f0757c"
+  webhook_key: "INS.me1x9uMcyYGlhKKQVPoc.bO3j9aZwRTOcA2Ywo"
+  send_interval_seconds: 120
+  message_char_limit: 15
+  max_retries: 3
+
+database:
+  host: "dpg-d18s7ah5pdvs73ctdj80-a.oregon-postgres.render.com"
+  port: 5432
+  user: "messenger_db_v5ff_user"
+  password: "IrjMqhJ2NSycCbT6PT48k3FflhsDvjQa"
+  name: "messenger_db_v5ff"
+  sslmode: "require"
+
+redis:
+  url: "rediss://default:AaCKAAIjcDEzMDg1YmEzNjNhMjU0NWUxYTk3ZTAyYjU0Y2NjMjA0OXAxMA@guiding-lamb-41098.upstash.io:6379"

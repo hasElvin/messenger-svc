@@ -1,0 +1,123 @@
+basePath: /
+definitions:
+  domain.Message:
+    properties:
+      content:
+        type: string
+      created_at:
+        type: string
+      id:
+        type: integer
+      sent_at:
+        type: string
+      status:
+        type: string
+      to:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  handlers.FailResponse:
+    properties:
+      error:
+        type: string
+    type: object
+  handlers.SuccessResponse:
+    properties:
+      message:
+        type: string
+    type: object
+host: messenger-svc-gfsy.onrender.com
+info:
+  contact: {}
+  description: API for managing message auto-sending system
+  title: Messenger API
+  version: "1.0"
+paths:
+  /clear:
+    delete:
+      description: Clears database for testing purposes
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handlers.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handlers.FailResponse'
+      summary: Clear database
+      tags:
+      - Utility
+  /ping:
+    get:
+      description: Returns a simple pong string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handlers.SuccessResponse'
+      summary: Health check
+      tags:
+      - Utility
+  /seed:
+    post:
+      description: Seeds 10 sample messages into database for testing purposes
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handlers.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handlers.FailResponse'
+      summary: Seed sample messages
+      tags:
+      - Utility
+  /sent:
+    get:
+      description: Returns a list of messages that were sent by the auto-sender
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/domain.Message'
+            type: array
+      summary: List all sent messages
+      tags:
+      - Messages
+  /start:
+    post:
+      description: Starts the automatic message sending process
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handlers.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handlers.FailResponse'
+      summary: Start auto-sender
+      tags:
+      - AutoSender
+  /stop:
+    post:
+      description: Stops the automatic message sending process
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handlers.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handlers.FailResponse'
+      summary: Stop auto-sender
+      tags:
+      - AutoSender
+schemes:
+- https
+swagger: "2.0"
